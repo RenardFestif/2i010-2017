@@ -19,14 +19,102 @@ Question 1
 script saisie.sh
 
 
+#! bin/bash/
+# le script prend en parametre un nom de fichier
+
+if [ $# -ne 1 ]
+then
+    echo "il faut exactement 1 paramètre !"
+    exit
+fi
+
+if ! [[ -f $1 ]]
+then
+    echo '$1 n est pas un fichier'
+fi
+
+
+NOTE=0
+rm -f $1
+touch $1
+
+while [ $NOTE -ge 0 ] && [[ ! (-z "$NOTE") ]] 
+do
+    read NOTE
+    echo $NOTE >> $1
+
+done
+
+
+
 Question 2
 ----------
 script somme.sh
+
+#! bin/bash/
+# le script prend en parametre un nom de fichier
+
+if [ $# -ne 1 ]
+then
+    echo "il faut exactement 1 paramètre !"
+    exit
+fi
+
+if ! [[ -f $1 ]]
+then
+    echo '$1 n est pas un fichier'
+fi
+
+SOM=0
+TMP=0
+CMPT=0
+while  read TMP 
+do
+    if [ $TMP -lt 0 ]
+    then
+	echo "$SOM" > $1
+	echo "$CMPT" >> $1
+	exit
+    fi
+
+    SOM=$(( $SOM + $TMP ))
+    CMPT=$(( $CMPT + 1 ))
+done < $1
+
+echo $SOM > $1
+
+
 
 
 Question 3
 ----------
 script moy.sh
+
+
+#! bin/bash/
+# le script prend en parametre un nom de fichier
+
+if [ $# -ne 1 ]
+then
+    echo "il faut exactement 1 paramètre !"
+    exit
+fi
+
+if ! [[ -f $1 ]]
+then
+    echo '$1 n est pas un fichier'
+fi
+
+
+MOY=0
+SOM=`sed -n 1p $1`
+CARD=`sed -n 2p $1`
+
+MOY=$(($SOM / $CARD))
+
+echo $MOY > $1
+
+
 
 
 Question 4

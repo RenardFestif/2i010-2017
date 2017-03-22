@@ -14,14 +14,12 @@ then
 fi
 
 
-NOTE=0
-rm -f $1
-touch $1
+MOY=0
+SOM=`sed -n 1p $1`
+CARD=`sed -n 2p $1`
 
-while [ $NOTE -ge 0 ] && [[ ! (-z "$NOTE") ]] 
-do
-    read NOTE
-    echo $NOTE >> $1
+MOY=$(($SOM / $CARD))
 
-done
+echo $MOY > $1
+
 

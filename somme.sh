@@ -13,15 +13,22 @@ then
     echo '$1 n est pas un fichier'
 fi
 
-
-NOTE=0
-rm -f $1
-touch $1
-
-while [ $NOTE -ge 0 ] && [[ ! (-z "$NOTE") ]] 
+SOM=0
+TMP=0
+CMPT=0
+while  read TMP 
 do
-    read NOTE
-    echo $NOTE >> $1
+    if [ $TMP -lt 0 ]
+    then
+	echo "$SOM" > $1
+	echo "$CMPT" >> $1
+	exit
+    fi
 
-done
+    SOM=$(( $SOM + $TMP ))
+    CMPT=$(( $CMPT + 1 ))
+done < $1
+
+echo $SOM > $1
+
 
